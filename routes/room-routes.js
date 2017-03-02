@@ -4,7 +4,7 @@ const multer = require('multer');
 const Room = require('../models/room-model.js');
 
 const roomRoutes = Router();
-const uploads = multer({ dest: '../public/uploads/' });
+const uploads = multer({ dest: __dirname + '/../public/uploads/' });
 
 roomRoutes.get('/rooms/new', (req, res, next) => {
   res.render('rooms/new', {
@@ -12,19 +12,24 @@ roomRoutes.get('/rooms/new', (req, res, next) => {
   });
 });
 
-roomRoutes.post('/rooms', ensure.ensureLoggedIn(), (req, res, next) => {
+roomRoutes.post('/rooms',
+ensure.ensureLoggedIn(),
+uploads.single('picture'),
+(req, res, next) => {
+  const filename = req.file.fileName;
+
   const newRoom = new Room ({
     name:     req.body.name,
     desc:     req.body.desc,
-    picture: 'https://media.giphy.com/media/51sDmvdwnr8qY/giphy.gif',
+    picture: `/uploads/${filename}`,
     owner:    req.user._id   // <-- we add the user ID
   });
 
   newRoom.save ((err) => {
     if (err) {
       next(err);
-    return;
-  }
+      return;
+    }
     else {
       req.flash('success', 'Your room has been created.');
       res.redirect('/rooms/new');
@@ -33,14 +38,14 @@ roomRoutes.post('/rooms', ensure.ensureLoggedIn(), (req, res, next) => {
 });
 
 roomRoutes.get('/my-rooms', ensure.ensureLoggedIn(), (req, res, next) => {
-    Room.find({ owner: req.user._id }, (err, myRooms) => {
-      if (err) {
-        next(err);
-        return;
-      }
+  Room.find({ owner: req.user._id }, (err, myRooms) => {
+    if (err) {
+      next(err);
+      return;
+    }
 
-      res.render('rooms/index', { rooms : myRooms });
-    });
+    res.render('rooms/index', { rooms : myRooms });
+  });
 });
 
 module.exports = roomRoutes;
