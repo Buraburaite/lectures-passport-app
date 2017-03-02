@@ -16,7 +16,7 @@ roomRoutes.post('/rooms',
 ensure.ensureLoggedIn(),
 uploads.single('picture'),
 (req, res, next) => {
-  const filename = req.file.fileName;
+  const filename = req.file.filename;
 
   const newRoom = new Room ({
     name:     req.body.name,
