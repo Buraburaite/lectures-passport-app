@@ -1,0 +1,32 @@
+<h2>Signup</h2>
+
+<form action="/signup" method="POST" id="form-container">
+  <label for="firstName">First Name</label>
+  <input id="firstName" type="text" name="firstName" placeholder="Jon">
+  <br><br>
+  <label for="lastName">Last Name</label>
+  <input id="lastName" type="text" name="lastName" placeholder="Snow">
+
+  <label for="username">Username</label>
+  <input id="username" type="text" name="username" placeholder="PromisedPrince">
+  <br><br>
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password" placeholder="I<3Danerys">
+
+  <% if (typeof message !== "undefined") { %>
+    <div class="error-message"><%= message %></div>
+    <% } %>
+    <br><br>
+
+    <button>Create account</button>
+
+    <p class="account-message">
+      Do you already have an account?
+      <a href="/login">Login</a>
+    </p>
+  </form>
+
+  <ul>
+    <li> <a href="/auth/facebook"> Login with Facebook </a> </li>
+    <li> <a href="/auth/google"> Login with Google </a> </li>
+  </ul>

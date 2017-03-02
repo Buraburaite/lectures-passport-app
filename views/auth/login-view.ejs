@@ -1,0 +1,24 @@
+<h1> Log In </h1>
+
+<% if (errorMessage.length > 0) { %>
+  <p class="error"> <%= errorMessage %> </p>
+  <% } %>
+
+  <form action="/login" method="POST">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" name="username">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" name="password">
+    </div>
+    <div>
+      <input type="submit" value="Log In">
+    </div>
+  </form>
+
+  <ul>
+    <li> <a href="/auth/facebook"> Login with Facebook </a> </li>
+    <li> <a href="/auth/google"> Login with Google </a> </li>
+  </ul>

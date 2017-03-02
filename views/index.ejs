@@ -1,0 +1,19 @@
+<h1><%= title %></h1>
+<p>Welcome to <%= title %></p>
+
+<% if (typeof successMessage !== 'undefined') { %>
+  <p class="success">
+    <%= successMessage %>
+  </p>
+  <% } %>
+
+  <ul>
+    <% if (userInfo) { %>
+      <li> <a href="/secret">Secret</a> </li>
+      <li> <a href="/kgb-files">KGB Files</a> </li>
+        <li> <a href="/logout">Logout</a> </li>
+      <% } else { %>
+        <li> <a href="/signup">Create Account</a> </li>
+        <li> <a href="/login">Login</a> </li>
+        <% } %>
+      </ul>
